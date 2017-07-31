@@ -2,7 +2,7 @@
   "name": "cornelly",
   "version": "0.0.1",
   "description": "A notetaking desktop app for taking cornell notes and compiling to pdf based on the electron framework",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "test"
   },
