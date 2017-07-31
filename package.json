@@ -1,0 +1,26 @@
+{
+  "name": "cornelly",
+  "version": "0.0.1",
+  "description": "A notetaking desktop app for taking cornell notes and compiling to pdf based on the electron framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andurshurrdurr/cornelly.git"
+  },
+  "keywords": [
+    "electron",
+    "cornellnotes"
+  ],
+  "author": "Anders H",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andurshurrdurr/cornelly/issues"
+  },
+  "homepage": "https://github.com/andurshurrdurr/cornelly#readme",
+  "devDependencies": {
+    "electron": "^1.6.11"
+  }
+}
