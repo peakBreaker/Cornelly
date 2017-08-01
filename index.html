@@ -2,12 +2,42 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
     <title>Hello World!</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We areg using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div class="top">
+      <span style="font-size:30px;">Cornelly!</span> - The cornell notetaking application
+      <button data-bind="click: $root.makePdf">Make pdf</button>
+      <button data-bind="click: $root.saveContent">Save notes</button>
+    </div>
+    <div class="sidebar">
+      <h2>Notebooks</h2>
+      <ul>
+
+        <li>Notes 1</li>
+        <li>Notes 2</li>
+
+      </ul>
+    </div>
+
+    <div class="contents">
+      <h2>Contents</h2>
+      <table>
+        <!-- foreach contents -->
+        <tbody data-bind="foreach: contents">
+          <tr>
+            <td><input class="subject" data-bind="textInput: subject"></td>
+            <td><input class="content" data-bind="textInput: content"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" data-bind="click: $root.addContent">Add content</button>
+    </div>
+    <div class="summary">
+      Summary: <input class="content" data-bind="textInput: summary">
+    </div>
+    <script src="js/knockout-3.4.2.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
