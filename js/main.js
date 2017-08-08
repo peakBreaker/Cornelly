@@ -6,16 +6,44 @@ const Menu = electron.Menu;
 const path = require('path')
 const url = require('url')
 const ipcMain = require('electron').ipcMain;
+const Mustache = require('mustache')
+var pdf = require('html-pdf');
+var fs = require('fs');
 
+var makePDF = function(html) {
+  var options = { format: 'A4' };
+  pdf.create(html, options).toFile('./SAMPLE.pdf', function(err, res) {
+    if (err) return console.log(err);
+    console.log(res); // { filename: '/app/businesscard.pdf' }
+  });
+}
 
 ipcMain.on('save-channel', function(event, arg) {
-    console.log("Got a message from the app to access native pdf features")
-    // First we deconstruct the json
+    console.log("Got a message from the app to access native features")
+    // First we get the saveType
     console.log(arg)
     console.log(arg.saveType)
-
-    // And check if its save or pdf
-
+    if (arg.saveType === "json") {
+      console.log("saving as json")
+      try { fs.writeFileSync('SAMPLE.json', JSON.stringify(arg), 'utf-8'); }
+      catch(e) { alert('Failed to save the file !'); }
+    }
+    else if (arg.saveType === "pdf") {
+      console.log("constructing pdf")
+      arg.parsed = function(){ return this.subject + " : " + this.content}
+      console.log("added parsingfunction for templating")
+      // First we save the file as html
+      var base = fs.readFile('./base.html', {encoding: "utf8"}, function (err, html) {
+        if (err) {
+            throw err;
+        }
+        console.log("loaded html file");
+        var markup = Mustache.render(html, arg);
+        // try { fs.writeFileSync('tmphtml.html', markup, 'utf-8'); }
+        // catch(e) { alert('Failed to save the file !'); }
+        makePDF(markup)
+      });
+    }
 });
 
 
