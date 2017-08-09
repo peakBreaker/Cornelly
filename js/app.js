@@ -3,13 +3,15 @@ var fs = require('fs');
 const {dialog} = require('electron').remote;
 
 var readFileSystem = function(s){
-
+  // Got the boilerplate open file from :
+  // http://ourcodeworld.com/articles/read/106/how-to-choose-read-save-delete-or-create-a-file-with-electron-framework
   dialog.showOpenDialog((fileNames) => {
       // fileNames is an array that contains all the selected
       if(fileNames === undefined){
           console.log("No file selected");
           return;
       }
+      var filepath = fileNames[0]
       fs.readFile(filepath, 'utf-8', (err, data) => {
           if(err){
               alert("An error ocurred reading the file :" + err.message);
@@ -17,16 +19,31 @@ var readFileSystem = function(s){
           }
           // Change how to handle the file content
           console.log("The file content is : " + data);
+          data = JSON.parse(data)
+          console.log(data.mainContents)
           // Check if the file has the valid fields
-
-          // And load it into the self object
+          if (data.mainContents.length > 0 & data.summary.length > 0) {
+            console.log("Valid file! contents: " + data.mainContents);
+            // And load it into the ViewModel - first we clear the array
+            s.contents([]);
+            s.summary("");
+            // Foreach content
+            data.mainContents.forEach(function(c){
+              s.contents.push(new content(c.subject, c.content));
+            });
+            // Finally add summary
+            s.summary(data.summary);
+          } else {
+            alert("invalid savefile");
+            return;
+          }
       });
   });
 
 }
 
 // Class for our content
-var content = function() {
+var content = function(subject="", content="") {
   // First we set the self variable
   var self = this;
   // Observables
