@@ -7,36 +7,33 @@
   </head>
   <body>
     <div class="top">
-      <span style="font-size:30px;">Cornelly!</span> - The cornell notetaking application
-      <button data-bind="click: $root.makePdf">Make pdf</button>
-      <button data-bind="click: $root.saveContent">Save notes</button>
-      <button data-bind="click: $root.loadContent">Load note</button>
-    </div>
-    <div class="sidebar">
-      <h2>Notebooks</h2>
-      <ul>
-
-        <li>Notes 1</li>
-        <li>Notes 2</li>
-
-      </ul>
+      <img class="header" src="fig/raster/header.png" alt="headerimage">
+      <div class="buttons">
+        <button data-bind="click: $root.newNote">New</button>
+        <button data-bind="click: $root.makePdf">Export</button>
+      </div>
+      <div class="buttons">
+        <button data-bind="click: $root.saveContent">Save</button>
+        <button data-bind="click: $root.loadContent">Load</button>
+      </div>
     </div>
 
     <div class="contents">
-      <h2>Contents</h2>
+      <div class="content-header">
+        <h2>Notes</h2> <button type="button" data-bind="click: $root.addContent">Add</button>
+      </div>
       <table>
         <!-- foreach contents -->
         <tbody data-bind="foreach: contents">
-          <tr>
-            <td><input class="subject" data-bind="textInput: subject" maxlength="30"></td>
-            <td><input class="content" data-bind="textInput: content" maxlength="255"></td>
+          <tr style="width:100%;">
+            <td class="subject"><input data-bind="textInput: subject" maxlength="30"></td>
+            <td class="content"><input data-bind="textInput: content" maxlength="140"></td>
           </tr>
         </tbody>
       </table>
-      <button type="button" data-bind="click: $root.addContent">Add content</button>
     </div>
     <div class="summary">
-      Summary: <input class="content" data-bind="textInput: summary">
+      Summary: <input maxlength="140" class="content" data-bind="textInput: summary">
     </div>
     <script src="js/knockout-3.4.2.js"></script>
     <script src="js/app.js"></script>

@@ -10,9 +10,10 @@ const Mustache = require('mustache')
 var pdf = require('html-pdf');
 var fs = require('fs');
 
-var makePDF = function(html) {
-  var options = { format: 'A4' };
-  pdf.create(html, options).toFile('./SAMPLE.pdf', function(err, res) {
+var makePDF = function(html, fileNames) {
+  console.log(fileNames)
+  var options = { "format": 'A4' };
+  pdf.create(html, options).toFile(fileNames, function(err, res) {
     if (err) return console.log(err);
     console.log(res); // { filename: '/app/businesscard.pdf' }
   });
@@ -22,26 +23,24 @@ ipcMain.on('save-channel', function(event, arg) {
     console.log("Got a message from the app to access native features")
     // First we get the saveType
     console.log(arg)
-    console.log(arg.saveType)
-    if (arg.saveType === "json") {
-      console.log("saving as json")
-      try { fs.writeFileSync('SAMPLE.json', JSON.stringify(arg), 'utf-8'); }
-      catch(e) { alert('Failed to save the file !'); }
-    }
-    else if (arg.saveType === "pdf") {
+    console.log(arg[0].saveType)
+    if (arg[0].saveType === "pdf") {
       console.log("constructing pdf")
-      arg.parsed = function(){ return this.subject + " : " + this.content}
+      arg[0].parsedSubject = function(){ return this.subject };
+      arg[0].parsedContent = function(){ return this.content };
       console.log("added parsingfunction for templating")
-      // First we save the file as html
+      // First we template the file with mustache
       var base = fs.readFile('./base.html', {encoding: "utf8"}, function (err, html) {
         if (err) {
             throw err;
         }
         console.log("loaded html file");
-        var markup = Mustache.render(html, arg);
+        var markup = Mustache.render(html, arg[0]);
         // try { fs.writeFileSync('tmphtml.html', markup, 'utf-8'); }
         // catch(e) { alert('Failed to save the file !'); }
-        makePDF(markup)
+
+        // Next we send the templated file to the pdf subroutine
+        makePDF(markup, arg[1])
       });
     }
 });

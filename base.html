@@ -2,21 +2,65 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <style>{{style}}</style>
+    <style>
+    .page {
+      width: 153mm;
+      height: 195mm;
+      background: rgb(204,204,204);
+    }
+    * {
+      max-width:100%;
+      word-wrap:break-word;
+    }
+    table {
+      border-collapse: collapse;
+      height: 100%;
+    }
+    .summary {
+      position: absolute;
+      right: 0;
+      bottom: -20mm;
+      left: 0;
+      border-top: 1px solid black;
+      padding: 1rem;
+      background-color: #efefef
+    }
+    .contents {
+      height: 80%;
+      background-color: #efefef;
+    }
+    .subject {
+      max-width: 40mm;
+      background-color: white;
+      border-top: 1px solid gray;
+      border-right:1px solid black;
+    }
+    </style>
     <title>Hello World!</title>
   </head>
   <body>
-    <div class="top">
-      <p>This is top</p>
-    </div>
-    <div class="contents">
-      <h2>Contents</h2>
-      {{#mainContents}}
-      *  {{parsed}} <br>
-      {{/mainContents}}
-    </div>
-    <div class="summary">
-      Summary: {{summary}}
+      <div class="page">
+        <div class="top">
+          <p>Notes taken with the cornelly notetaking app v0.1 - by @peakBreaker</p>
+        </div>
+        <div class="contents">
+          <h2>Notes</h2>
+          <table>
+            {{#mainContents}}
+              <tr>
+                <td class="subject">{{parsedSubject}}</td>
+                <td style="border-top: 1px solid gray; max-width:113mm; background-color:#d1d1d1;">{{parsedContent}}</td>
+              </tr>
+            {{/mainContents}}
+            <tr style="height:90%; min-height:10mm;">
+              <td class="subject" style="height:100%;"></td>
+              <td style="border-top: 1px solid gray; background-color:#d1d1d1;"></td>
+            </tr>
+          </table>
+        </div>
+        <div class="summary">
+          Summary: {{summary}}
+        </div>
     </div>
     <script src="js/knockout-3.4.2.js"></script>
     <script src="js/app.js"></script>
