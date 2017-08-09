@@ -10,6 +10,7 @@
       <span style="font-size:30px;">Cornelly!</span> - The cornell notetaking application
       <button data-bind="click: $root.makePdf">Make pdf</button>
       <button data-bind="click: $root.saveContent">Save notes</button>
+      <button data-bind="click: $root.loadContent">Load note</button>
     </div>
     <div class="sidebar">
       <h2>Notebooks</h2>
@@ -27,8 +28,8 @@
         <!-- foreach contents -->
         <tbody data-bind="foreach: contents">
           <tr>
-            <td><input class="subject" data-bind="textInput: subject"></td>
-            <td><input class="content" data-bind="textInput: content"></td>
+            <td><input class="subject" data-bind="textInput: subject" maxlength="30"></td>
+            <td><input class="content" data-bind="textInput: content" maxlength="255"></td>
           </tr>
         </tbody>
       </table>

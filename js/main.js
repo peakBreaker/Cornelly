@@ -54,7 +54,6 @@ let win
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({width: 800, height: 600})
-  console.log("New app")
   // and load the index.html of the app.
   win.loadURL(url.format({
     pathname: path.join(__dirname, '../index.html'),

@@ -1,6 +1,6 @@
 # Cornelly
 
-Cornelly is a notetaking app based on electron for taking cornell notes.  Im developing this because I like taking notes in cornell style, and i couldnt find another app which filled my void.
+Cornelly is a notetaking app based on electron for taking cornell notes.  Im developing this because I like taking notes in cornell style, and i couldnt find another app which filled my requirements.
 
 ## Getting started
 Howto get a devenvironment running on your system
@@ -8,6 +8,8 @@ Howto get a devenvironment running on your system
 ### Prereq
 - Nodejs and npm, with packages:
   - Electron
+  - Mustache templating
+  - html-pdf
 
 ### Instructions
 1. Clone the repository

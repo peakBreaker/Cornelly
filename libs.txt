@@ -1,0 +1,3 @@
+https://www.npmjs.com/package/html-pdf
+https://www.npmjs.com/package/mustache
+https://www.npmjs.com/package/electron

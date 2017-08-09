@@ -1,4 +1,29 @@
 var ipcRenderer = require('electron').ipcRenderer;
+var fs = require('fs');
+const {dialog} = require('electron').remote;
+
+var readFileSystem = function(s){
+
+  dialog.showOpenDialog((fileNames) => {
+      // fileNames is an array that contains all the selected
+      if(fileNames === undefined){
+          console.log("No file selected");
+          return;
+      }
+      fs.readFile(filepath, 'utf-8', (err, data) => {
+          if(err){
+              alert("An error ocurred reading the file :" + err.message);
+              return;
+          }
+          // Change how to handle the file content
+          console.log("The file content is : " + data);
+          // Check if the file has the valid fields
+
+          // And load it into the self object
+      });
+  });
+
+}
 
 // Class for our content
 var content = function() {
@@ -31,10 +56,23 @@ var ViewModel = function () {
 
   // Function to add new contents
   self.addContent = function() {
-    console.log("new content")
-    self.contents.push(new content());
+    console.log(self.contents().length)
+    if (self.contents().length < 10){
+      console.log("new content")
+      self.contents.push(new content());
+    } else {alert("Too many inputs on this page")}
   }
 
+  self.loadContent = function() {
+    if (self.contents().length > 1 | self.summary().length > 1){
+      var user_continues = confirm("You have unsaved data, do you wish to continue?")
+      if (user_continues){
+        readFileSystem(self)
+      }
+    } else {
+      readFileSystem(self)
+    }
+  }
   // Function to save the content as json
   self.saveContent = function() {
     console.log("Saving contents")
